@@ -2,8 +2,8 @@ version: '3'
 
 services:
   ci-build:
-    image: microsoft/aspnetcore-build:1.0-1.1
+    image: microsoft/aspnetcore-build:2.0
     volumes:
       - .:/src
     working_dir: /src
-    command: /bin/bash -c "dotnet restore ./DockerAZ-14-ASPNETCore.sln && dotnet publish ./DockerAZ-14-ASPNETCore.sln -c Release -o ./obj/Docker/publish"
+    command: /bin/bash -c "dotnet restore ./ci.sln && dotnet publish ./ci.sln -c Release -o ./obj/Docker/publish"
