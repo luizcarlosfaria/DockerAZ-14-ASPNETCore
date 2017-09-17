@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ASPNETCoreExemplo.Models;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 
 namespace ASPNETCoreExemplo.Controllers
 {
@@ -40,7 +41,7 @@ namespace ASPNETCoreExemplo.Controllers
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
-            var listaAluno = mongoDbClient.GetDatabase("admin").GetCollection<Aluno>("aluno").Find(Builders<Aluno>.Filter.Where(it => it.Idade > 0)).ToList();
+            var listaAluno = mongoDbClient.GetDatabase("admin").GetCollection<Aluno>("aluno").AsQueryable().ToList();
             return View(listaAluno);
         }
 
