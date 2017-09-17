@@ -67,8 +67,9 @@ public IActionResult Add()
 {
 	var collection = mongoDbClient.GetDatabase("admin").GetCollection<Aluno>("aluno");
 	collection.InsertMany(new[] {
-		new Aluno() { Nome = "Aluno1", Idade = 17 },
-		new Aluno() { Nome = "Aluno2", Idade = 18 }
+		new Aluno() { Nome = "Aluno17", Idade = 17 },
+		new Aluno() { Nome = "Aluno18", Idade = 18 },
+		new Aluno() { Nome = "Aluno19", Idade = 19 }
 	});
 	return Ok("2 alunos adicionados");
 }

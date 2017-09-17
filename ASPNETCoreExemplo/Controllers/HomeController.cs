@@ -5,21 +5,43 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ASPNETCoreExemplo.Models;
+using MongoDB.Driver;
 
 namespace ASPNETCoreExemplo.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly MongoDB.Driver.MongoClient mongoDbClient;
+
+        public HomeController(MongoDB.Driver.MongoClient mongoDbClient)
+        {
+            this.mongoDbClient = mongoDbClient;
+        }
+
+
+
         public IActionResult Index()
         {
             return View();
         }
 
+
+        public IActionResult Add()
+        {
+            var collection = mongoDbClient.GetDatabase("admin").GetCollection<Aluno>("aluno");
+            collection.InsertMany(new[] {
+                new Aluno() { Nome = "Aluno17", Idade = 17 },
+                new Aluno() { Nome = "Aluno18", Idade = 18 },
+                new Aluno() { Nome = "Aluno19", Idade = 19 }
+            });
+            return Ok("3 alunos adicionados");
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
-
-            return View();
+            var listaAluno = mongoDbClient.GetDatabase("admin").GetCollection<Aluno>("aluno").Find(Builders<Aluno>.Filter.Where(it => it.Idade > 0)).ToList();
+            return View(listaAluno);
         }
 
         public IActionResult Contact()

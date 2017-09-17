@@ -6,3 +6,29 @@ services:
     build:
       context: ./ASPNETCoreExemplo
       dockerfile: Dockerfile
+    networks:
+      - demo_aspnet
+
+  meu_mongo:
+    image: mongo:3.4
+#    ports:
+#      - "27017:27017"
+    volumes:
+      - db_mongo:/data/db
+    networks:
+      - demo_aspnet
+    restart: always
+    command: --storageEngine wiredTiger
+    environment: 
+      MONGO_INITDB_ROOT_USERNAME: mongouser
+      MONGO_INITDB_ROOT_PASSWORD: GPX4WOwpcvOc9Wm70gAG8It7tKA0Cy090ZVO82cEJsExogsMDY
+
+
+
+volumes:
+  db_mongo:
+
+
+networks: 
+  demo_aspnet: 
+    driver: bridge

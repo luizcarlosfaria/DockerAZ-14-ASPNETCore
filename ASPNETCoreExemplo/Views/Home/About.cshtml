@@ -9,3 +9,11 @@
 <p><strong>OSVersion:</strong> @System.Environment.OSVersion</p>
 <p><strong>MachineName:</strong> @System.Environment.MachineName</p>
 <p><strong>UserName:</strong> @System.Environment.UserName</p>
+
+
+<h1>Alunos</h1>
+@foreach (var aluno in Model)
+{
+
+    <p>@aluno.Nome / @aluno.Idade </p>
+}
